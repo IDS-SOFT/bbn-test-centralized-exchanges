@@ -64,7 +64,9 @@ contract CryptoExchange {
         uint256 fromAmount,
         uint256 toAmount
     ) external {
+        require(fromAmount > 0, "Amount must be greater than 0");
         uint256 fee = (fromAmount * tradeFee) / 10000; // Calculate the fee
+        require(fromToken != toToken, "Cannot trade the same token");
         require(balances[msg.sender] >= fromAmount, "Insufficient balance");
         require(balances[address(this)] >= fee, "Insufficient exchange balance");
 
